@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="d-flex justify-content-center bg-secondary h-100">
+    <h2>Hallo {{ authService.currentUserSig()?.username }}</h2>
+  </div>
+  <h3>{{ authService.currentUserSig() | json }}</h3>
+
+  <div class="card shadow">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4">Neuer Displayname</h3>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <!-- New Name Input -->
+        <div class="form-floating mb-3">
+              <input
+              type="text"
+              formControlName="newName"
+              class="form-control"
+              id="newName"
+              placeholder="Enter your new Name"
+              required
+              />
+              <label for="newName" class="form-label">Neuer Name</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!isValid">Speichern</button>
+      </form>
+    </div>
+  </div>
+</div>

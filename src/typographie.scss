@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+$custom-font-family: "Oswald", serif;
+
+$custom-typography: mat-typography-config(
+  $font-family: $custom-font-family
+);
+
+@include angular-material-typography($custom-typography);
