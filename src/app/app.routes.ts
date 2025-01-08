@@ -16,5 +16,16 @@ export const routes: Routes = [
         loadComponent: () => import('./business/home/home.component').then((m) => m.HomeComponent),  
         canActivate: [authguardGuard]
     },
+    {
+        path: 'user-data', 
+        loadComponent: () => import('./business/user-data/user-data.component').then((m) => m.UserDataComponent),  
+        canActivate: [authguardGuard]
+    },
+    {
+        path: 'member', 
+        loadComponent: () => import('./business/member/member.component').then((m) => m.MemberComponent),  
+        canActivate: [authguardGuard]
+    },
+
     {path: '**', component: NotFoundComponent}
 ];

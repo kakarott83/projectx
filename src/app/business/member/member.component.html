@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="d-flex justify-content-center bg-secondary h-100 mb-3">
+    <h2>Mitarbeiter</h2>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body">
+      @if (!isLoading) {
+      <form [formGroup]="memberForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col">
+            <!-- Name Input -->
+            <mat-form-field class="w-100">
+              <mat-label for="name" class="form-label">Name</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="name"
+                id="name"
+                placeholder="Name"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <!-- Firstname Input -->
+            <mat-form-field class="w-100">
+              <mat-label for="firstName" class="form-label">Vorname</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="firstName"
+                id="firstName"
+                placeholder="Vorname"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Email Input -->
+        <mat-form-field class="w-100">
+          <mat-label for="email" class="form-label">E-Mail</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="email"
+            id="email"
+            placeholder="E-Mail Adresse"
+          />
+        </mat-form-field>
+
+        <!-- UID Input -->
+        <mat-form-field class="w-100">
+          <mat-label for="uid" class="form-label">UID</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="uid"
+            id="uid"
+            placeholder="UID"
+          />
+        </mat-form-field>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between">
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="
+              memberForm.disabled ? memberForm.enable() : memberForm.disable()
+            "
+          >
+            <i class="bi bi-pen"></i>
+            Bearbeiten
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="memberForm.disabled"
+          >
+            <i class="bi bi-floppy"></i>
+            Speichern
+          </button>
+        </div>
+      </form>
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+        <mat-tab label="Stammdaten">
+          <app-main-data></app-main-data>
+        </mat-tab>
+        <mat-tab label="Position">
+          <app-position></app-position>
+        </mat-tab>
+        <mat-tab label="Termine">Termine</mat-tab>
+      </mat-tab-group>
+      } @else {
+      <ng-container>
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </ng-container>
+      }
+    </div>
+  </div>
+  <div>{{ memberForm.value | json }}</div>
+  <div>{{ memberForm.disabled }}</div>
+</div>
