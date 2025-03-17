@@ -1,0 +1,52 @@
+{
+    "members": [
+        {
+          "id": 1,
+          "birthday": "1990-03-15T09:15:31.429Z",
+          "street": "Waldweg",
+          "housenumber": "5a",
+          "zip": "80689",
+          "city": "München",
+          "name": "Members1",
+          "firstName": "Ingo",
+          "email": "mi@test.de",
+          "uid": "123",
+          "team": "FOMO",
+          "position": "Business Consultant",
+          "entryDate": "1990-03-15T09:15:31.429Z",
+          "currSalary": 5800.05  
+        },
+        {
+            "id": 3,
+            "birthday": "1985-03-15T09:15:31.429Z",
+            "street": "Waldweg",
+            "housenumber": "5a",
+            "zip": "80689",
+            "city": "München",
+            "name": "Members2",
+            "firstName": "Marius",
+            "email": "mm@test.de",
+            "uid": "123",
+            "team": "FOMO",
+            "position": "Business Consultant",
+            "entryDate": "1985-03-15T09:15:31.429Z",
+            "currSalary": 5800.05  
+          },
+          {
+            "id": 2,
+            "birthday": "1994-03-15T09:15:31.429Z",
+            "street": "Waldweg",
+            "housenumber": "5a",
+            "zip": "80689",
+            "city": "München",
+            "name": "Members3",
+            "firstName": "Paul",
+            "email": "mp@test.de",
+            "uid": "123",
+            "team": "FOMO",
+            "position": "Business Consultant",
+            "entryDate": "2010-03-15T09:15:31.429Z",
+            "currSalary": 5800.05  
+          }
+    ]
+  }

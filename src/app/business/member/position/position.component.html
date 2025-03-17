@@ -1,64 +1,66 @@
-<form [formGroup]="positionForm">
-    <div class="row">
-        <div class="col">
-          <!-- Team Input -->
-          <mat-form-field class="w-100">
-            <mat-label>Team</mat-label>
-            <mat-select formControlName="team">
-              @for (team of teamList; track team) {
-              <mat-option [value]="team">{{ team }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <!-- Position Input -->
-          <mat-form-field class="w-100">
-            <mat-label for="city" class="form-label">Position</mat-label>
-            <input
-              matInput
-              type="text"
-              formControlName="position"
-              id="position"
-              placeholder="Position"
-            />
-          </mat-form-field>
-        </div>
-      </div>
+@if (myMember) {
+  <form [formGroup]="positionForm">
       <div class="row">
           <div class="col">
-                      <!-- Eintrittsdatum Input -->
-      <mat-form-field class="w-100">
-          <mat-label>Eintritt</mat-label>
-          <input
-            matInput
-            [matDatepicker]="entryPicker"
-            formControlName="entryDate"
-          />
-          <mat-datepicker-toggle
-            matIconSuffix
-            [for]="entryPicker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #entryPicker></mat-datepicker>
-        </mat-form-field>
+            <!-- Team Input -->
+            <mat-form-field class="w-100">
+              <mat-label>Team</mat-label>
+              <mat-select formControlName="team">
+                @for (team of teamList; track team) {
+                <mat-option [value]="team">{{ team }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="col">
-      <!-- Aktuelles Gehalt -->
-      <mat-form-field class="w-100">
-          <mat-label for="currSalary" class="form-label"
-            >aktuelles Gehalt</mat-label
-          >
-          <input
-            matInput
-            type="number"
-            formControlName="currSalary"
-            currencySymbol="€"
-            thousandSeparator="."
-            decimalSeparator=","
-            id="currSalary"
-            placeholder="aktuelles Gehalt"
-          />
-        </mat-form-field>
+            <!-- Position Input -->
+            <mat-form-field class="w-100">
+              <mat-label for="city" class="form-label">Position</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="position"
+                id="position"
+                placeholder="Position"
+              />
+            </mat-form-field>
           </div>
-      </div>
-</form>
+        </div>
+        <div class="row">
+            <div class="col">
+                        <!-- Eintrittsdatum Input -->
+        <mat-form-field class="w-100">
+            <mat-label>Eintritt</mat-label>
+            <input
+              matInput
+              [matDatepicker]="entryPicker"
+              formControlName="entryDate"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="entryPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #entryPicker></mat-datepicker>
+          </mat-form-field>
+            </div>
+            <div class="col">
+        <!-- Aktuelles Gehalt -->
+        <mat-form-field class="w-100">
+            <mat-label for="currSalary" class="form-label"
+              >aktuelles Gehalt</mat-label
+            >
+            <input
+              matInput
+              type="number"
+              formControlName="currSalary"
+              currencySymbol="€"
+              thousandSeparator="."
+              decimalSeparator=","
+              id="currSalary"
+              placeholder="aktuelles Gehalt"
+            />
+          </mat-form-field>
+            </div>
+        </div>
+  </form>
+}

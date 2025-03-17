@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, setDoc, getDocs, deleteDoc, updateDoc, collectionData, getDoc, docData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Member } from '../model/member';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirestoreService {
 
-  constructor(private fs: Firestore) { }
+export class FirestoreService {
+  private apiUrl = 'http://localhost:3000';
+
+  constructor(
+    private fs: Firestore,
+    private http: HttpClient
+  ) { }
+
+
 
   /* User Data */
   addUserData(collectionName: string, docId: string, data: any): Promise<any> {
@@ -48,6 +57,32 @@ export class FirestoreService {
   deleteDocument(collectionName: string, docId: string): Promise<void> {
     const docRef = doc(this.fs, `${collectionName}/${docId}`);
     return deleteDoc(docRef);
+  }
+
+  /*Fake Service*/
+
+  getMemberData(): Observable<Member> {
+    return this.http.get(`${this.apiUrl}/members`)
+  }
+
+  getMembers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/members`);
+  }
+
+  getMember(id: number): Observable<Member> {
+    return this.http.get<Member>(`${this.apiUrl}/members/${id}`)
+  }
+
+  addMember(member: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/members`, member)
+  }
+
+  updateMember(id: number, member: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/members/${id}`, member)
+  }
+
+  deleteMember(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/members/${id}`)
   }
 
 

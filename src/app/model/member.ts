@@ -12,5 +12,6 @@ export interface Member {
     city?: string,
     position?: string,
     entryDate?: Date,
-    currSalary?: number
+    currSalary?: number,
+    uid?: string,
 }

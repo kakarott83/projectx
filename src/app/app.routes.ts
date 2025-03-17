@@ -14,17 +14,22 @@ export const routes: Routes = [
     {
         path: 'home', 
         loadComponent: () => import('./business/home/home.component').then((m) => m.HomeComponent),  
-        canActivate: [authguardGuard]
+        //canActivate: [authguardGuard]
     },
     {
         path: 'user-data', 
         loadComponent: () => import('./business/user-data/user-data.component').then((m) => m.UserDataComponent),  
-        canActivate: [authguardGuard]
+        //canActivate: [authguardGuard]
     },
     {
-        path: 'member', 
+        path: 'member/:id', 
         loadComponent: () => import('./business/member/member.component').then((m) => m.MemberComponent),  
-        canActivate: [authguardGuard]
+        //canActivate: [authguardGuard]
+    },
+    {
+        path: 'member-list',
+        loadComponent: () => import('./business/member-list/member-list.component').then((m) => m.MemberListComponent),
+        //canActivate: [authguardGuard]
     },
 
     {path: '**', component: NotFoundComponent}

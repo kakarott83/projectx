@@ -14,6 +14,7 @@ import 'moment/locale/de';
 import { CurrencyPipe } from '@angular/common';
 
 import * as _moment from 'moment';
+import { provideHttpClient } from '@angular/common/http';
 
 export const MY_FORMATS = {
   parse: {
@@ -37,6 +38,7 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     CurrencyPipe,
+    provideHttpClient()
 
     
   ]

@@ -45,11 +45,21 @@ export class HelpersService {
 
   }
 
-  calcAge(date: string) {
-    const start = moment(new Date(date));
-    const today = moment(new Date())
-    return today.diff(start, 'years')
+  calcAge(birthday: string | Date | undefined): number 
+  {
+      if (!birthday) return 0;
+          
+      const birth = new Date(birthday);
+      const today = new Date();
+          
+      let age = today.getFullYear() - birth.getFullYear();
+      if (
+          today.getMonth() < birth.getMonth() ||
+          (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate())
+          ) {
+          age--;
+          }
+          
+          return age;
   }
-
-
 }

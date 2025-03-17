@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, EventEmitter, Inject, inject, Input, OnDestroy, OnInit, Output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MaterialModule } from '../../material/material.module';
 import { CurrencyPipe, JsonPipe } from '@angular/common';
@@ -10,6 +10,10 @@ import { MY_FORMATS } from '../../app.config';
 import moment from 'moment';
 import { MainDataComponent } from './main-data/main-data.component';
 import { PositionComponent } from './position/position.component';
+import { FirestoreService } from '../../services/firestore.service';
+import { BehaviorSubject, Subscribable, Subscription } from 'rxjs';
+import { SharedService } from '../../services/shared.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-member',
@@ -21,77 +25,66 @@ import { PositionComponent } from './position/position.component';
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     CurrencyPipe
-
   ]
 })
-export class MemberComponent {
+export class MemberComponent implements OnInit, OnDestroy {
 
-  
+  // private dataStream = new BehaviorSubject<Member | null>(null);
+  // dataStream$ = this.dataStream.asObservable();
   
   memberForm!: FormGroup;
+  mainDataForm!: FormGroup;
   isLoading = false;
   teamList = ['FOMO','BOCH','BODAT'];
   helpers = inject(HelpersService);
-  myMember: Member = {};
+  myMember!: Member | null;
   formattedAmount: string | null = null;
+  subShared!: Subscription
+
 
   constructor(
     private fb: FormBuilder,
-    private currencyPipe: CurrencyPipe
-  ) {
-    this.memberForm = fb.group({
-      name: ['Mustermann'],
-      firstName: ['Max'],
-      birthday: [new Date()],
-      age: [{ value: 26, disabled: true }],
-      street: ['Waldweg'],
-      housenumber: ['5a'],
-      email: ['mm@test.de'],
-      uid: ['123'],
-      team: ['FOMO'],
-      zip: ['80689'],
-      city: ['München'],
-      position: ['Business Consultant'],
-      entryDate: [new Date()],
-      currSalary: [5800.05],
+    private currencyPipe: CurrencyPipe,
+    private fsService: FirestoreService,
+    private shared: SharedService,
+    private route: ActivatedRoute
+
+  ) {  }
+
+
+
+  ngOnInit(): void {
+    this.memberForm = this.fb.group({
+      name: [],
+      firstName: [],
+      email: [],
+      uid: [],
     })
 
-    
-
-    /*Observerable*/
-    this.setObserver()
-    
+    this.route.paramMap.subscribe(params => {
+      const memberId = Number(params.get('id'));
+      this.subShared = this.fsService.getMember(memberId).subscribe(member => {
+        this.mapForm(member);
+        this.shared.setMember(member);
+        this.myMemberChange()
+      })
+    })
   }
 
-
+  mapForm(member: Member) {
+    this.memberForm.patchValue(member)
+  }
 
   onSubmit() {
-    console.log(this.createMember(),'MyMember')
+    console.log(this.shared.CurrentMember)
   }
 
-  createMember(): Member {
-    return this.myMember = {
-      name: this.memberForm.get('name')?.value!,
-      firstName: this.memberForm.get('firstName')?.value!,
-      birthday: new Date(this.memberForm.get('birthday')?.value)!,
-      age: this.memberForm.get('age')?.value!,
-      street: this.memberForm.get('age')?.value!,
-      housenumber: this.memberForm.get('housenumber')?.value!,
-      email: this.memberForm.get('email')?.value!,
-      team: this.memberForm.get('team')?.value!,
-      zip: this.memberForm.get('zip')?.value!,
-      city: this.memberForm.get('city')?.value!,
-      position: this.memberForm.get('position')?.value!,
-      entryDate: new Date(this.memberForm.get('entryDate')?.value)!,
-      currSalary: this.helpers.formatDbAmount(this.memberForm.get('housenumber')?.value!),
-    }
+  myMemberChange() {
+    this.myMember = this.shared.CurrentMember
   }
 
-  setObserver() {
-    this.memberForm.get('birthday')?.valueChanges.subscribe(data => {
-      const age = this.helpers.calcAge(data)
-      this.memberForm.get('age')?.setValue(age);
-    })
+  ngOnDestroy(): void {
+    this.subShared.unsubscribe()
   }
 
 
