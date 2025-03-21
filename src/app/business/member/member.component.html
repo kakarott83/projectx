@@ -106,5 +106,5 @@
   </div>
   <div>{{ memberForm.value | json }}</div>
   <div>{{ memberForm.disabled }}</div>
-  <div>{{ myMember | json }}</div>
+  <div>{{ shared.memberSource$| async | json }}</div>
 </div>

@@ -5,6 +5,7 @@ import { Member } from '../model/member';
 @Injectable({
   providedIn: 'root'
 })
+
 export class SharedService {
 
   constructor() { }

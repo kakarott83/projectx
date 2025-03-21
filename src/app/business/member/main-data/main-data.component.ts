@@ -70,13 +70,4 @@ export class MainDataComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     this.subShared.unsubscribe()
   }
 
-
-
-
-
-
-  
-
-  
-
 }

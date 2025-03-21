@@ -14,23 +14,26 @@ import { SharedService } from '../../../services/shared.service';
 export class PositionComponent implements OnInit {
 
     positionForm!: FormGroup;
-    myMember!: Member;
+    myMember: Member;
     teamList = ['FOMO','BOCH','BODAT'];
     subShared!: Subscription
   
     constructor(
       private fb: FormBuilder,
       private shared: SharedService
-    ) {  }
+    ) { 
+      this.myMember = this.shared.CurrentMember??{};
+    }
 
 
   ngOnInit(): void {
-    this.subShared = this.shared.memberSource$.subscribe((member) => {
-      if(member) {
-        this.myMember = member;
-        this.initForm(this.myMember);
-      }
-    })
+    // this.subShared = this.shared.memberSource$.subscribe((member) => {
+    //   if(member) {
+    //     this.myMember = member;
+    //     this.initForm(this.myMember);
+    //   }
+    // })
+    this.initForm(this.myMember);
   }
 
   initForm(member: Member) {
@@ -42,16 +45,22 @@ export class PositionComponent implements OnInit {
       currSalary: member?.currSalary,
      })
      this.positionForm.valueChanges.subscribe(data => {
-       this.setMember()
+       //this.setMember()
+       console.log(data, 'Data');
+       Object.assign(this.myMember,data)
+       console.log(this.myMember,'MyMember')
+       this.shared.setMember(this.myMember)
      })
    }
 
    setMember() {
-    this.myMember.team = this.positionForm.get('team')?.value;
-    this.myMember.position = this.positionForm.get('position')?.value;
-    this.myMember.entryDate = this.positionForm.get('entryDate')?.value;
-    this.myMember.currSalary = this.positionForm.get('currSalary')?.value;
-    this.shared.setMember(this.myMember);
+    if(this.myMember) {
+      this.myMember.team = this.positionForm.get('team')?.value;
+      this.myMember.position = this.positionForm.get('position')?.value;
+      this.myMember.entryDate = this.positionForm.get('entryDate')?.value;
+      this.myMember.currSalary = this.positionForm.get('currSalary')?.value;
+      this.shared.setMember(this.myMember);
+    }
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, Inject, inject, Input, OnDestroy, OnInit, Output, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MaterialModule } from '../../material/material.module';
-import { CurrencyPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, JsonPipe } from '@angular/common';
 import { HelpersService } from '../../services/helpers.service';
 import { Member } from '../../model/member';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -11,13 +11,13 @@ import moment from 'moment';
 import { MainDataComponent } from './main-data/main-data.component';
 import { PositionComponent } from './position/position.component';
 import { FirestoreService } from '../../services/firestore.service';
-import { BehaviorSubject, Subscribable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscribable, Subscription, take } from 'rxjs';
 import { SharedService } from '../../services/shared.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-member',
-  imports: [MaterialModule, JsonPipe, MainDataComponent, PositionComponent],
+  imports: [MaterialModule, JsonPipe, MainDataComponent, PositionComponent, AsyncPipe],
   templateUrl: './member.component.html',
   styleUrl: './member.component.scss',
   providers: [
@@ -37,7 +37,7 @@ export class MemberComponent implements OnInit, OnDestroy {
   isLoading = false;
   teamList = ['FOMO','BOCH','BODAT'];
   helpers = inject(HelpersService);
-  myMember!: Member | null;
+  myMember: Member;
   formattedAmount: string | null = null;
   subShared!: Subscription
 
@@ -46,10 +46,12 @@ export class MemberComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private currencyPipe: CurrencyPipe,
     private fsService: FirestoreService,
-    private shared: SharedService,
+    protected shared: SharedService,
     private route: ActivatedRoute
 
-  ) {  }
+  ) { 
+    this.myMember = shared.CurrentMember??{};
+  }
 
 
 
@@ -63,12 +65,22 @@ export class MemberComponent implements OnInit, OnDestroy {
 
     this.route.paramMap.subscribe(params => {
       const memberId = Number(params.get('id'));
-      this.subShared = this.fsService.getMember(memberId).subscribe(member => {
+      this.subShared = this.fsService.getMember(memberId)
+      .pipe(
+        take(1)
+      )
+      .subscribe(member => {
         this.mapForm(member);
         this.shared.setMember(member);
-        this.myMemberChange()
       })
+
     })
+
+    this.memberForm.valueChanges.subscribe(data => {
+      Object.assign(this.myMember, data)
+      this.shared.setMember(this.myMember)
+    })
+
   }
 
   mapForm(member: Member) {
@@ -77,10 +89,6 @@ export class MemberComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.shared.CurrentMember)
-  }
-
-  myMemberChange() {
-    this.myMember = this.shared.CurrentMember
   }
 
   ngOnDestroy(): void {
