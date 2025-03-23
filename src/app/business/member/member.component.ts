@@ -14,10 +14,11 @@ import { FirestoreService } from '../../services/firestore.service';
 import { BehaviorSubject, Subscribable, Subscription, take } from 'rxjs';
 import { SharedService } from '../../services/shared.service';
 import { ActivatedRoute } from '@angular/router';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 @Component({
   selector: 'app-member',
-  imports: [MaterialModule, JsonPipe, MainDataComponent, PositionComponent, AsyncPipe],
+  imports: [MaterialModule, JsonPipe, MainDataComponent, PositionComponent,AppointmentComponent, AsyncPipe],
   templateUrl: './member.component.html',
   styleUrl: './member.component.scss',
   providers: [

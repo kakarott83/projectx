@@ -44,3 +44,16 @@ body {
       }
     }
   }
+
+  .tab-container {
+    margin-top: 10px;
+  }
+
+  .dialog-container {
+    margin: 10px;
+  }
+
+  .dialog-content {
+    display: flex !important;
+    flex-direction: column !important;
+  }

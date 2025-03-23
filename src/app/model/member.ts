@@ -1,3 +1,5 @@
+import {MemberDate} from './memberDate'
+
 export interface Member {
     id?: string,
     name?: string,
@@ -14,4 +16,5 @@ export interface Member {
     entryDate?: Date,
     currSalary?: number,
     uid?: string,
+    appointments?: MemberDate[]
 }

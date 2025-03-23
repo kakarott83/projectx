@@ -23,15 +23,12 @@ export class MainDataComponent implements OnInit, AfterViewInit, OnChanges, OnDe
     private fb: FormBuilder,
     private shared: SharedService,
     private helperService: HelpersService
-  ) {  }
+  ) {  
+    this.myMember = this.shared.CurrentMember??{};
+  }
 
   ngOnInit(): void {
-    this.subShared = this.shared.memberSource$.subscribe((member) => {
-      if(member) {
-        this.myMember = member;
-        this.initForm(this.myMember);
-      }
-    })
+    this.initForm(this.myMember);
   }
 
   initForm(member: Member) {
@@ -44,18 +41,9 @@ export class MainDataComponent implements OnInit, AfterViewInit, OnChanges, OnDe
       city: member.city
     })
     this.mainDataForm.valueChanges.subscribe(data => {
-      this.setMember()
+      Object.assign(this.myMember,data);
+      this.shared.setMember(this.myMember)
     })
-  }
-
-  setMember() {
-    this.myMember.age = this.mainDataForm.get('age')?.value;
-    this.myMember.birthday = this.mainDataForm.get('birthday')?.value;
-    this.myMember.street = this.mainDataForm.get('street')?.value;
-    this.myMember.housenumber = this.mainDataForm.get('housenumber')?.value;
-    this.myMember.zip = this.mainDataForm.get('zip')?.value;
-    this.myMember.city = this.mainDataForm.get('city')?.value;
-    this.shared.setMember(this.myMember);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

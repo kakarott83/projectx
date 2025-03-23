@@ -1,94 +1,96 @@
-@if (myMember) {
-  <form [formGroup]="mainDataForm">
-      <div class="row">
-          <div class="col-9">
-            <!-- Geburtsdatum Input -->
-            <mat-form-field class="w-100">
-              <mat-label>Geburtsdatum</mat-label>
-              <input
-                matInput
-                [matDatepicker]="birthdayPicker"
-                formControlName="birthday"
-              />
-              <mat-datepicker-toggle
-                matIconSuffix
-                [for]="birthdayPicker"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #birthdayPicker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-3">
-            <!-- Alter Input -->
-            <mat-form-field class="w-100">
-              <mat-label for="age" class="form-label">Alter</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="age"
-                id="age"
-                placeholder="Alter"
-              />
-            </mat-form-field>
-          </div>
-        </div>
+<div class="tab-container">
+  @if (myMember) {
+    <form [formGroup]="mainDataForm">
         <div class="row">
-          <div class="col-9">
-            <!-- Strasse Input -->
-            <mat-form-field class="w-100">
-              <mat-label for="street" class="form-label">Strasse</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="street"
-                id="street"
-                placeholder="Strasse"
-              />
-            </mat-form-field>
+            <div class="col-9">
+              <!-- Geburtsdatum Input -->
+              <mat-form-field class="w-100">
+                <mat-label>Geburtsdatum</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="birthdayPicker"
+                  formControlName="birthday"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="birthdayPicker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #birthdayPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-3">
+              <!-- Alter Input -->
+              <mat-form-field class="w-100">
+                <mat-label for="age" class="form-label">Alter</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="age"
+                  id="age"
+                  placeholder="Alter"
+                />
+              </mat-form-field>
+            </div>
           </div>
-          <div class="col-3">
-            <!-- Hausnummer Input -->
-            <mat-form-field class="w-100">
-              <mat-label for="housenumber" class="form-label"
-                >Hausnummer</mat-label
-              >
-              <input
-                matInput
-                type="text"
-                formControlName="housenumber"
-                id="housenumber"
-                placeholder="Hausnummer"
-              />
-            </mat-form-field>
+          <div class="row">
+            <div class="col-9">
+              <!-- Strasse Input -->
+              <mat-form-field class="w-100">
+                <mat-label for="street" class="form-label">Strasse</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="street"
+                  id="street"
+                  placeholder="Strasse"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-3">
+              <!-- Hausnummer Input -->
+              <mat-form-field class="w-100">
+                <mat-label for="housenumber" class="form-label"
+                  >Hausnummer</mat-label
+                >
+                <input
+                  matInput
+                  type="text"
+                  formControlName="housenumber"
+                  id="housenumber"
+                  placeholder="Hausnummer"
+                />
+              </mat-form-field>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-3">
-            <!-- PLZ Input -->
-            <mat-form-field class="w-100">
-              <mat-label for="zip" class="form-label">PLZ</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="zip"
-                id="zip"
-                placeholder="PLZ"
-              />
-            </mat-form-field>
+          <div class="row">
+            <div class="col-3">
+              <!-- PLZ Input -->
+              <mat-form-field class="w-100">
+                <mat-label for="zip" class="form-label">PLZ</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="zip"
+                  id="zip"
+                  placeholder="PLZ"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-9">
+              <!-- Ort Input -->
+              <mat-form-field class="w-100">
+                <mat-label for="city" class="form-label">Ort</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="city"
+                  id="city"
+                  placeholder="Ort"
+                />
+              </mat-form-field>
+            </div>
           </div>
-          <div class="col-9">
-            <!-- Ort Input -->
-            <mat-form-field class="w-100">
-              <mat-label for="city" class="form-label">Ort</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="city"
-                id="city"
-                placeholder="Ort"
-              />
-            </mat-form-field>
-          </div>
-        </div>
-  </form>
-  <div>{{myMember | json}}</div>
-}
+    </form>
+    <div>{{myMember | json}}</div>
+  }
+</div>

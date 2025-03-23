@@ -14,7 +14,21 @@
           "team": "FOMO",
           "position": "Business Consultant",
           "entryDate": "1990-03-15T09:15:31.429Z",
-          "currSalary": 5800.05  
+          "currSalary": 5800.05,
+          "appointments": [
+          {
+            "id": 1,
+            "reason": "Feedback Quartal",
+            "comment": "keine besonderes Anmerkungen",
+            "date": "2024-03-15T09:15:31.429Z"
+          },
+          {
+            "id": 2,
+            "reason": "End Review",
+            "comment": "keine besonderes Anmerkungen",
+            "date": "2025-05-30T09:15:31.429Z"
+          }
+          ]
         },
         {
             "id": 3,
@@ -30,7 +44,21 @@
             "team": "FOMO",
             "position": "Business Consultant",
             "entryDate": "1985-03-15T09:15:31.429Z",
-            "currSalary": 5800.05  
+            "currSalary": 5800.05,
+            "appointments": [
+              {
+                "id": 1,
+                "reason": "Feedback Quartal",
+                "comment": "keine besonderes Anmerkungen",
+                "date": "2024-03-15T09:15:31.429Z"
+              },
+              {
+                "id": 2,
+                "reason": "End Review",
+                "comment": "keine besonderes Anmerkungen",
+                "date": "2025-05-30T09:15:31.429Z"
+              }
+              ]
           },
           {
             "id": 2,
@@ -46,7 +74,21 @@
             "team": "FOMO",
             "position": "Business Consultant",
             "entryDate": "2010-03-15T09:15:31.429Z",
-            "currSalary": 5800.05  
+            "currSalary": 5800.05,
+            "appointments": [
+              {
+                "id": 1,
+                "reason": "Feedback Quartal",
+                "comment": "keine besonderes Anmerkungen",
+                "date": "2024-03-15T09:15:31.429Z"
+              },
+              {
+                "id": 2,
+                "reason": "End Review",
+                "comment": "keine besonderes Anmerkungen",
+                "date": "2025-05-30T09:15:31.429Z"
+              }
+              ]
           }
     ]
   }

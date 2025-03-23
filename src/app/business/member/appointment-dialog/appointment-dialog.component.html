@@ -1,0 +1,42 @@
+<div class="dialog-container">
+    <h2 mat-dialog-title>{{ data ? 'Termin bearbeiten' : 'Neuer Termin' }}</h2>
+
+    <form [formGroup]="appointmentForm" (ngSubmit)="onSave()">
+        <div class="dialog-content">
+            <mat-form-field class="w-100">
+                <mat-label>Typ</mat-label>
+                <mat-select formControlName="reason">
+                  @for (reason of reasonList; track reason) {
+                  <mat-option [value]="reason">{{ reason }}</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            <mat-form-field class="w-100">
+                <mat-label>Geburtsdatum</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="appointmentDate"
+                  formControlName="date"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="appointmentDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #appointmentDate></mat-datepicker>
+              </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Kommentar</mat-label>
+                <textarea  matInput formControlName="comment"></textarea>
+            </mat-form-field>
+
+            <div mat-dialog-actions align="end">
+                <button mat-button type="button" (click)="onCancel()">Abbrechen</button>
+                <button mat-button color="primary" type="submit" [disabled]="appointmentForm.invalid">
+                    {{ data ? 'Speichern' : 'Erstellen' }}
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>

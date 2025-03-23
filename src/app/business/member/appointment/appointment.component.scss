@@ -1,0 +1,18 @@
+.demo-table {
+    width: 100%;
+  }
+  
+  .demo-button-container {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  
+  .demo-button + .demo-button {
+    margin-left: 8px;
+  }
+
+  .table-button-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 1px;
+  }
