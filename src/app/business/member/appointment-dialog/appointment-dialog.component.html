@@ -12,17 +12,17 @@
                 </mat-select>
               </mat-form-field>
             <mat-form-field class="w-100">
-                <mat-label>Geburtsdatum</mat-label>
+                <mat-label>Datum</mat-label>
                 <input
                   matInput
-                  [matDatepicker]="appointmentDate"
+                  [matDatepicker]="appointmentPicker"
                   formControlName="date"
                 />
                 <mat-datepicker-toggle
                   matIconSuffix
-                  [for]="appointmentDate"
+                  [for]="appointmentPicker"
                 ></mat-datepicker-toggle>
-                <mat-datepicker #appointmentDate></mat-datepicker>
+                <mat-datepicker #appointmentPicker></mat-datepicker>
               </mat-form-field>
 
             <mat-form-field>
@@ -36,7 +36,8 @@
                     {{ data ? 'Speichern' : 'Erstellen' }}
                 </button>
             </div>
+
+            <div>{{data | json}}</div>
         </div>
     </form>
-
 </div>

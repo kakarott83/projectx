@@ -6,10 +6,11 @@ import { MaterialModule } from '../../../material/material.module';
 import { DatePipe, JsonPipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { AppointmentDialogComponent } from '../appointment-dialog/appointment-dialog.component';
+import { DeleteDialogComponent } from '../../dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-appointment',
-  imports: [MaterialModule, JsonPipe, DatePipe],
+  imports: [MaterialModule, DatePipe, JsonPipe],
   templateUrl: './appointment.component.html',
   styleUrl: './appointment.component.scss'
 })
@@ -36,13 +37,13 @@ export class AppointmentComponent implements OnInit {
   }
 
   editAppointment(id: number) {
-    console.log(id)
     const item = this.appointments.find(i => i.id === id);
     this.openDialog(item);
   }
 
   removeAppointment(id: number) {
-
+    //this.appointments = this.appointments.filter(a => a.id !== id);
+    this.openDeleteDialog(id)
   }
 
   openDialog(existingMemberDate?: MemberDate) {
@@ -54,17 +55,28 @@ export class AppointmentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         if(existingMemberDate) {
-          const index = this.appointments.findIndex(a => a === existingMemberDate);
-          if(index !== -1) {
-            this.appointments[index] = result
-          }
+          this.appointments = this.appointments.map(a => {
+            return a.id === existingMemberDate.id ? {...result} : a
+          })
         } else {
-          this.appointments.push(result)
+          const id = this.appointments.length + 1
+          result.id = id
+          this.appointments = [...this.appointments, result]
         }
       }
     })
   }
 
-  
+  openDeleteDialog(id: number) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '250px',
+      data: { content: 'Soll dieser Satz wirklich gelöscht werden?'}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.appointments = this.appointments.filter(a => a.id !== id);
+      }
+    })
+  }
 }

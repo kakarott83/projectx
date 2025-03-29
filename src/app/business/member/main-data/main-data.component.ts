@@ -55,7 +55,7 @@ export class MainDataComponent implements OnInit, AfterViewInit, OnChanges, OnDe
   }
 
   ngOnDestroy(): void {
-    this.subShared.unsubscribe()
+    console.log('ngOnDestroy')
   }
 
 }
